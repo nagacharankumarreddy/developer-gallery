@@ -1,0 +1,10 @@
+.tabs button.active {
+    font-weight: bold;
+    background: #ddd;
+  }
+  .concept {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+  }
+  
