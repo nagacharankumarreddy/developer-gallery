@@ -4,6 +4,9 @@ h1 {
     font-size: 26px;
     color: #333;
   }
+  .title{
+    margin-top: 5rem;
+  }
   
   nav {
     display: flex;

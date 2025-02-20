@@ -29,7 +29,7 @@ const Login = ({ setUser }) => {
           <button onClick={handleLogout}>Logout</button>
         </>
       ) : (
-        <button onClick={handleLogin}>Login with Google</button>
+        <button onClick={handleLogin}>Admin Login</button>
       )}
     </div>
   );

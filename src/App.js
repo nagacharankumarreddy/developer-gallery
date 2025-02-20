@@ -42,7 +42,7 @@ function App() {
         className={user ? "logout-btn" : "login-btn"}
         onClick={user ? handleSignOut : handleSignIn}
       >
-        {user ? "Logout" : "Login with Google"}
+        {user ? "Logout" : "Admin Login"}
       </button>
       <Home user={user} />
     </div>

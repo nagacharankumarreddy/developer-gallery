@@ -8,7 +8,7 @@ const Home = ({ user }) => {
 
   return (
     <div>
-      <h1>Developer Gallery</h1>
+      <h1 className="title">Developer Gallery</h1>
       <nav>
         {["JavaScript", "React", "Node.js"].map((category) => (
           <button key={category} onClick={() => setSelectedTab(category)}>
