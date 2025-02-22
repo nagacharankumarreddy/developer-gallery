@@ -34,7 +34,12 @@ function App() {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div className="loading-screen">
+        <h2>Loading...</h2>
+      </div>
+    );
 
   return (
     <div className="app-container">
