@@ -9,9 +9,13 @@ import {
 } from "../firebase/firebase";
 import "./ConceptList.css";
 import { ADMIN_UID } from "./constants";
+import EditModal from "./EditModal";
+import ExpandModal from "./ExpandModal";
 
 const ConceptList = ({ selectedTab, user }) => {
   const [concepts, setConcepts] = useState([]);
+  const [editConceptData, setEditConceptData] = useState(null);
+  const [expandConceptData, setExpandConceptData] = useState(null);
 
   const fetchConcepts = async () => {
     const querySnapshot = await getDocs(collection(db, "concepts"));
@@ -23,15 +27,15 @@ const ConceptList = ({ selectedTab, user }) => {
 
   useEffect(() => {
     fetchConcepts();
-  }, [selectedTab, fetchConcepts]);
+  }, [selectedTab]);
 
   const deleteConcept = async (id) => {
     await deleteDoc(doc(db, "concepts", id));
     fetchConcepts();
   };
 
-  const editConcept = async (id, newConcept) => {
-    await updateDoc(doc(db, "concepts", id), newConcept);
+  const saveEditedConcept = async (updatedConcept) => {
+    await updateDoc(doc(db, "concepts", updatedConcept.id), updatedConcept);
     fetchConcepts();
   };
 
@@ -40,32 +44,55 @@ const ConceptList = ({ selectedTab, user }) => {
       {concepts.map(({ id, concept, answer, sandboxLink }) => (
         <div key={id} className="concept-card">
           <h3>{concept}</h3>
-          <p>{answer}</p>
-          {sandboxLink && (
-            <a href={sandboxLink} target="_blank" rel="noopener noreferrer">
-              CodeSandbox
-            </a>
-          )}
-          {user?.uid === ADMIN_UID && (
-            <div className="button-group">
-              <button className="delete-btn" onClick={() => deleteConcept(id)}>
-                Delete
-              </button>
-              <button
-                className="edit-btn"
-                onClick={() =>
-                  editConcept(id, {
-                    concept: prompt("Edit Concept", concept) || concept,
-                    answer,
-                  })
-                }
-              >
-                Edit
-              </button>
-            </div>
-          )}
+          <p>
+            {answer.length > 100 ? answer.slice(0, 100) + "..." : answer}
+          </p>{" "}
+          <div className="button-group">
+            <button
+              className="expand-btn"
+              onClick={() =>
+                setExpandConceptData({ concept, answer, sandboxLink })
+              }
+            >
+              Expand
+            </button>
+
+            {user?.uid === ADMIN_UID && (
+              <>
+                <button
+                  className="edit-btn"
+                  onClick={() =>
+                    setEditConceptData({ id, concept, answer, sandboxLink })
+                  }
+                >
+                  Edit
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={() => deleteConcept(id)}
+                >
+                  Delete
+                </button>
+              </>
+            )}
+          </div>
         </div>
       ))}
+
+      {expandConceptData && (
+        <ExpandModal
+          conceptData={expandConceptData}
+          onClose={() => setExpandConceptData(null)}
+        />
+      )}
+
+      {editConceptData && (
+        <EditModal
+          conceptData={editConceptData}
+          onSave={saveEditedConcept}
+          onClose={() => setEditConceptData(null)}
+        />
+      )}
     </div>
   );
 };
