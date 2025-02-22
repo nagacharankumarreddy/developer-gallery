@@ -11,7 +11,11 @@ const Home = ({ user }) => {
       <h1 className="title">Developer Gallery</h1>
       <nav>
         {["JavaScript", "React", "Node.js"].map((category) => (
-          <button key={category} onClick={() => setSelectedTab(category)}>
+          <button
+            key={category}
+            onClick={() => setSelectedTab(category)}
+            className={selectedTab === category ? "active" : ""}
+          >
             {category}
           </button>
         ))}
