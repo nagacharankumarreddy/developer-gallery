@@ -44,9 +44,7 @@ const ConceptList = ({ selectedTab, user }) => {
       {concepts.map(({ id, concept, answer, sandboxLink }) => (
         <div key={id} className="concept-card">
           <h3>{concept}</h3>
-          <p>
-            {answer.length > 100 ? answer.slice(0, 100) + "..." : answer}
-          </p>{" "}
+          <p>{answer}</p>
           <div className="button-group">
             <button
               className="expand-btn"
