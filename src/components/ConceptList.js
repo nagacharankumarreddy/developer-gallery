@@ -55,6 +55,17 @@ const ConceptList = ({ selectedTab, user }) => {
               Expand
             </button>
 
+            {sandboxLink && (
+              <a
+                href={sandboxLink}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="sandbox-btn"
+              >
+                Code
+              </a>
+            )}
+
             {user?.uid === ADMIN_UID && (
               <>
                 <button

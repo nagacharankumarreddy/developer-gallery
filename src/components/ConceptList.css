@@ -63,6 +63,21 @@ button {
   background-color: #0056b3;
 }
 
+.sandbox-btn {
+  background-color: #5d5de6;
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-left: 8px;
+  cursor: pointer;
+}
+
+.sandbox-btn:hover {
+  background-color: #4444dd;
+}
+
 .delete-btn {
   background-color: #dc3545;
   color: white;

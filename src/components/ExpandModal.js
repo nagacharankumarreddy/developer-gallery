@@ -3,8 +3,8 @@ import "./ExpandModal.css";
 
 const ExpandModal = ({ conceptData, onClose }) => {
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
+    <div className="modal-overlay" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
         <h2>{conceptData.concept}</h2>
         <p>{conceptData.answer}</p>
         {conceptData.sandboxLink && (
