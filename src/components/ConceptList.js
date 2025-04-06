@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   collection,
   db,
@@ -17,17 +17,17 @@ const ConceptList = ({ selectedTab, user }) => {
   const [editConceptData, setEditConceptData] = useState(null);
   const [expandConceptData, setExpandConceptData] = useState(null);
 
-  const fetchConcepts = async () => {
+  const fetchConcepts = useCallback(async () => {
     const querySnapshot = await getDocs(collection(db, "concepts"));
     const data = querySnapshot.docs
       .map((doc) => ({ id: doc.id, ...doc.data() }))
       .filter((concept) => concept.category === selectedTab);
     setConcepts(data);
-  };
+  }, [selectedTab]);
 
   useEffect(() => {
     fetchConcepts();
-  }, [selectedTab]);
+  }, [selectedTab, fetchConcepts]);
 
   const deleteConcept = async (id) => {
     await deleteDoc(doc(db, "concepts", id));
